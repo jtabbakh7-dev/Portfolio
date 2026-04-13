@@ -1219,6 +1219,36 @@ footer {
 
 
 </style>
+<script>
+// ── Dual mode: ?mode=portfolio hides B2C sections ─────────────────────────
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('mode') === 'portfolio') {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hide Packages and Tryout sections
+      var sections = ['packages', 'tryout'];
+      sections.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+
+      // Hide Packages nav link
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        if (a.getAttribute('href') === '#packages') {
+          a.parentElement.style.display = 'none';
+        }
+      });
+
+      // Hide footer Packages link
+      document.querySelectorAll('footer a').forEach(function(a) {
+        if (a.getAttribute('href') === '#packages') {
+          a.style.display = 'none';
+        }
+      });
+    });
+  }
+})();
+</script>
 </head>
 <body>
 
