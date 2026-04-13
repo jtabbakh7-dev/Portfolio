@@ -1220,8 +1220,14 @@ footer {
 
 </style>
 <style>
+/* Nav always dark on legal pages */
+nav { background: rgba(15,15,13,0.97) !important; border-bottom: 1px solid var(--border) !important; }
+.nav-links a, .nav-logo, .nav-logo em ~ * { color: var(--text-muted) !important; }
+.nav-logo { color: var(--text) !important; }
+.nav-logo em { color: var(--accent) !important; }
+.nav-cta { color: var(--text) !important; border-color: var(--border) !important; }
 /* Hide Packages from nav on legal pages */
-.nav-links a[href="index.html#packages"] { display: none; }
+.nav-links a[href="index.html#packages"] { display: none !important; }
 </style>
 </head>
 <style>

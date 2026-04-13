@@ -1223,7 +1223,9 @@ footer {
 // ── Dual mode: ?mode=portfolio hides B2C sections ─────────────────────────
 (function() {
   var params = new URLSearchParams(window.location.search);
-  if (params.get('mode') === 'portfolio') {
+  var mode = params.get('mode') || sessionStorage.getItem('siteMode');
+  if (mode === 'portfolio') {
+    sessionStorage.setItem('siteMode', 'portfolio');
     document.addEventListener('DOMContentLoaded', function() {
       // Hide Packages and Tryout sections
       var sections = ['packages', 'tryout'];
@@ -1791,10 +1793,10 @@ footer {
     </div>
     <div class="reveal reveal-delay-2">
       <div class="contact-links">
-        <a href="mailto:j.tabbakh7@gmail.com" class="contact-link">
+        <a href="/cdn-cgi/l/email-protection#f49eda80959696959f9cc3b49399959d98da979b99" class="contact-link">
           <div class="contact-link-info">
             <div class="contact-link-label">Email</div>
-            <div class="contact-link-value">j.tabbakh7@gmail.com</div>
+            <div class="contact-link-value"><span class="__cf_email__" data-cfemail="3953174d585b5b5852510e795e54585055175a5654">[email&#160;protected]</span></div>
           </div>
           <span class="contact-link-arrow">↗</span>
         </a>
@@ -1825,7 +1827,7 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Custom cursor
 const cursor = document.getElementById('cursor');
 const cursorRing = document.getElementById('cursorRing');
@@ -2651,7 +2653,7 @@ function submitTryout(){
       </div>
       <div>
         <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">Kontakt</p>
-        <p>E-Mail: <a href="mailto:joudi.tabbakh@gmail.com" style="color:var(--accent);">joudi.tabbakh@gmail.com</a><br>
+        <p>E-Mail: <a href="/cdn-cgi/l/email-protection#fe94918b9a97d08a9f9c9c9f9596be99939f9792d09d9193" style="color:var(--accent);"><span class="__cf_email__" data-cfemail="e2888d97868bcc9683808083898aa2858f838b8ecc818d8f">[email&#160;protected]</span></a><br>
         LinkedIn: <a href="https://linkedin.com/in/jouditabbakh" target="_blank" style="color:var(--accent);">linkedin.com/in/jouditabbakh</a></p>
       </div>
       <div>
@@ -2689,7 +2691,7 @@ function submitTryout(){
       <div>
         <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">1. Verantwortliche</p>
         <p>Joudi Tabbakh, Berlin, Deutschland<br>
-        Kontakt: joudi.tabbakh@gmail.com</p>
+        Kontakt: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c262339282562382d2e2e2d27240c2b212d2520622f2321">[email&#160;protected]</a></p>
       </div>
       <div>
         <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">2. Erhobene Daten</p>
@@ -2710,7 +2712,7 @@ function submitTryout(){
       </div>
       <div>
         <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">6. Ihre Rechte</p>
-        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit. Wenden Sie sich hierzu an: joudi.tabbakh@gmail.com</p>
+        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit. Wenden Sie sich hierzu an: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88e2e7fdece1a6fce9eaeae9e3e0c8efe5e9e1e4a6ebe7e5">[email&#160;protected]</a></p>
         <p style="margin-top:8px;">Sie haben außerdem das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren (Berliner Beauftragte für Datenschutz und Informationsfreiheit).</p>
       </div>
       <div>
@@ -2850,8 +2852,8 @@ function submitTryout(){
   </div>
 </div>
 
-</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html,
   fassade:{title:'Fassade Design Iterations',location:'AI-Assisted Facade Generation',year:'2024',type:'Residential',descEN:'A series of AI-generated facade iterations exploring material, texture, and form.',descDE:'KI-generierte Fassadendesign-Iterationen.',tags:['AI Visualization','Generative','Facade','Conceptual'],images:[]},
   vrwalkthrough:{title:'VR Presentation — Live Walkthrough',location:'Berlin — VBG Office, Client Presentation',year:'2024',type:'VR / Process / Oculus',descEN:'Navigating the VBG Office in Berlin live in VR — presented to the client before construction.',descDE:'Navigation des VBG-Büros live in VR — dem Kunden vor dem Bau präsentiert.',tags:['VR','3D Visualization','Process','Oculus'],images:[]},
-  hausinnenraum:{title:'Haus Innenraum Renovierung',location:'Northeim, Deutschland',year:'2024',type:'Residential / Renovation',descDE:'Die Eigentümer dieses Hauses wollten es verkaufen. Ein potenzieller Käufer zeigte Interesse — jedoch nur unter der Bedingung einer Renovierung im minimalistischen, fugenfreien Stil. Mikrozement wurde als Bodenbelag gewählt, und die Küche sollte durch ein Panoramafenster geöffnet werden. Bevor der Käufer eine endgültige Entscheidung traf, wollte er visualisieren, wie der Innenraum aussehen würde.',descEN:'The owners were looking to sell. A potential buyer expressed interest on the condition that the interior be renovated in a minimal, pure style with no visible floor joints — leading to the choice of microcement. The kitchen was to be opened with a panoramic window. Before committing, the buyer wanted to visualise the concept and confirm feasibility.',tags:['Interior','Residential','Renovation','3D Visualization'],images:[]}>
+  hausinnenraum:{title:'Haus Innenraum Renovierung',location:'Northeim, Deutschland',year:'2024',type:'Residential / Renovation',descDE:'Die Eigentümer dieses Hauses wollten es verkaufen. Ein potenzieller Käufer zeigte Interesse — je
