@@ -1219,6 +1219,10 @@ footer {
 
 
 </style>
+<style>
+/* Hide Packages from nav on legal pages */
+.nav-links a[href="index.html#packages"] { display: none; }
+</style>
 </head>
 <style>
 body { background: #F2EDE8; color: #1A1814; }
@@ -1263,7 +1267,7 @@ main { padding-top: 120px; min-height: 80vh; background: #F2EDE8; }
       <p class="page-section-label">Kontakt</p>
       <p class="page-body">
         Telefon: +49 176 42793324<br>
-        E-Mail: j.tabbakh7@gmail.com
+        E-Mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddb7f3a9bcbfbfbcb6b5ea9dbab0bcb4b1f3beb2b0">[email&#160;protected]</a>
       </p>
     </div>
     <div class="page-section">
@@ -1306,11 +1310,4 @@ main { padding-top: 120px; min-height: 80vh; background: #F2EDE8; }
     <a href="datenschutz.html">Datenschutz</a>
   </div>
 </footer>
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if(nav) nav.classList.toggle('scrolled', window.scrollY > 50);
-});
-</script>
-</body>
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudf
