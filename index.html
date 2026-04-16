@@ -1284,6 +1284,8 @@ footer {
 <script defer src="https://cloud.umami.is/script.js" data-website-id="2a29ab08-b4eb-4da3-a40f-ac09c08b3d3c"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init("hQ3HnWnYq78Acop1Y");</script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -2549,43 +2551,78 @@ function submitTryout(){
   if(!desc){alert('Please add a short description.');return;}
   var btn=document.getElementById('tryoutSubmitBtn');
   btn.disabled=true;btn.textContent='Sending...';
-  
-  var files=document.getElementById('tryoutFiles').files;
-  var fileNames=files.length>0?Array.from(files).map(function(f){return f.name;}).join(', '):'No files';
-  
-  // Read first file as base64 if exists
-  var readers=[];
-  var fileDataPromises=[];
-  for(var i=0;i<Math.min(files.length,3);i++){
-    (function(file){
-      fileDataPromises.push(new Promise(function(resolve){
-        var reader=new FileReader();
-        reader.onload=function(e){resolve({name:file.name,data:e.target.result});};
-        reader.readAsDataURL(file);
-      }));
-    })(files[i]);
-  }
-  
-  Promise.all(fileDataPromises).then(function(fileData){
-    var params={
-      from_name: name,
-      from_email: email,
-      message: desc,
-      file_names: fileNames,
-      to_email: 'j.tabbakh7@gmail.com'
-    };
-    
-    emailjs.send('service_7mokoj1','template_qk058ih',params)
-    .then(function(){
-      document.getElementById('tryoutForm').style.display='none';
-      document.getElementById('tryoutSuccess').style.display='block';
-    },function(error){
-      console.error('EmailJS error:',error);
-      btn.disabled=false;
-      btn.textContent='Send Request';
-      alert('Something went wrong. Please try again.');
-    });
+  var uploadedUrls=window._cloudinaryUrls||[];
+  var fileLinks=uploadedUrls.length>0?uploadedUrls.join(' | '):'No images uploaded';
+  var params={
+    from_name: name,
+    from_email: email,
+    message: desc,
+    file_names: fileLinks
+  };
+  emailjs.send('service_7mokoj1','template_qk058ih',params)
+  .then(function(){
+    document.getElementById('tryoutForm').style.display='none';
+    document.getElementById('tryoutSuccess').style.display='block';
+    window._cloudinaryUrls=[];
+  },function(error){
+    console.error('EmailJS error:',error);
+    btn.disabled=false;
+    btn.textContent='Send Request';
+    alert('Something went wrong. Please try again.');
   });
+}
+
+function openCloudinaryWidget(){
+  window._cloudinaryUrls=window._cloudinaryUrls||[];
+  var widget=cloudinary.createUploadWidget({
+    cloudName:'dpplaxdow',
+    uploadPreset:'jt_studio_tryout',
+    sources:['local','camera'],
+    multiple:true,
+    maxFiles:4,
+    resourceType:'image',
+    clientAllowedFormats:['jpg','jpeg','png','webp'],
+    maxFileSize:10000000,
+    showAdvancedOptions:false,
+    cropping:false,
+    showSkipCropButton:false,
+    language:'en',
+    text:{en:{or:'or',menu:{files:'Upload Files'},crop:{title:'Crop'}}}
+  },function(error,result){
+    if(!error&&result&&result.event==='success'){
+      window._cloudinaryUrls=window._cloudinaryUrls||[];
+      window._cloudinaryUrls.push(result.info.secure_url);
+      var list=document.getElementById('tryoutFileList');
+      list.innerHTML='';
+      window._cloudinaryUrls.forEach(function(url,i){
+        var div=document.createElement('div');
+        div.style.cssText='font-size:11px;color:var(--accent);margin-top:8px;font-family:var(--font-mono);';
+        div.textContent='Image '+(i+1)+' uploaded';
+        list.appendChild(div);
+      });
+    }
+  });
+  widget.open();
+}
+
+function openCloudinaryUpload(){
+  window._tryoutUploadedUrls=window._tryoutUploadedUrls||[];
+  var widget=cloudinary.createUploadWidget({
+    cloudName:'dpplaxdow',
+    uploadPreset:'jt_studio_tryout',
+    multiple:true,
+    maxFiles:4,
+    resourceType:'image',
+    sources:['local','camera'],
+    styles:{palette:{window:'#1A1814',windowBorder:'#D4A898',tabIcon:'#D4A898',menuIcons:'#D4A898',textDark:'#1A1814',textLight:'#E8E0D8',link:'#D4A898',action:'#D4A898',inactiveTabIcon:'#7A7068',error:'#F44235',inProgress:'#D4A898',complete:'#20B832',sourceBg:'#141412'}}
+  },function(error,result){
+    if(!error&&result&&result.event==='success'){
+      window._tryoutUploadedUrls.push(result.info.secure_url);
+      var counter=document.getElementById('tryoutUploadCount');
+      if(counter)counter.textContent=window._tryoutUploadedUrls.length+' photo(s) uploaded';
+    }
+  });
+  widget.open();
 }
 
 // Haus card thumbnail video
@@ -2678,12 +2715,12 @@ function submitTryout(){
       <div class="tryout-field"><label>E-Mail-Adresse / Email Address</label><input type="email" id="tryoutEmail" placeholder="ihre@email.com" autocomplete="email"></div>
       <div class="tryout-field">
         <label>Bilder hochladen / Upload Images <span style="opacity:0.5;font-size:8px;">(1&ndash;3 Raumfotos + 1 Referenz)</span></label>
-        <div class="tryout-upload-area">
-          <input type="file" id="tryoutFiles" multiple accept="image/*" onchange="handleTryoutFiles(this)">
+        <div class="tryout-upload-area" onclick="openCloudinaryUpload()" style="cursor:pointer;">
           <div class="tryout-upload-icon">&#x2191;</div>
           <span class="tryout-upload-label">Klicken zum Hochladen / Click to upload</span>
           <span class="tryout-upload-hint">JPG, PNG, WEBP &mdash; max. 4 Bilder / images</span>
         </div>
+        <p id="tryoutUploadCount" style="font-family:var(--font-mono);font-size:9px;color:var(--accent);margin-top:8px;text-align:center;letter-spacing:0.1em;"></p>
         <div class="tryout-upload-preview" id="tryoutPreview"></div>
       </div>
       <div class="tryout-field"><label>Beschreibung / Description <span style="opacity:0.5;font-size:8px;">(Was soll sich ver&auml;ndern?)</span></label><textarea id="tryoutDesc" placeholder="Beschreiben Sie den Bereich und die gew&uuml;nschte Richtung. / Describe the area and the direction you have in mind."></textarea></div>
