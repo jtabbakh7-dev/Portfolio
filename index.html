@@ -1767,7 +1767,7 @@ footer {
         <h2 class="section-title" style="font-size:clamp(28px,3vw,42px);margin-bottom:24px;">Design<br><em>Tryout</em></h2>
         <p class="tryout-desc">A quick design refresh for one existing area. Upload 1&ndash;3 clear photos along with a reference image of what you like &mdash; add a short note on what you want to change.</p>
         <div class="tryout-upgrade"><p>If you proceed with a full package within the next <strong>30 days</strong>, the <strong>&euro;199 is fully deducted</strong> from your selected package price.</p></div>
-        <div class="tryout-cta"><button onclick="document.getElementById('tryoutOverlay').classList.add('open')">Start a Tryout</button></div>
+        <div class="tryout-cta"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfMHMASi71kHA9mrzPXe77ubYBd6SvENdgYsyWPs7MefVU9ng/viewform" target="_blank" style="display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--accent);border:none;padding:16px 32px;text-decoration:none;cursor:pointer;transition:background 0.2s ease;">Start a Tryout →</a></div>
         <button class="deu-btn" style="margin-top:16px;" onclick="document.getElementById('deuTryoutModal').classList.add('open')" aria-label="Auf Deutsch lesen"><span style="display:inline-flex;gap:3px;align-items:center;margin-right:4px;"><span style="display:inline-block;width:14px;height:10px;background:linear-gradient(to bottom,#000 33%,#D00 33%,#D00 66%,#FFCE00 66%);border-radius:1px;"></span></span>DEU</button>
       </div>
       <div class="tryout-left-lists">
@@ -2556,7 +2556,11 @@ function submitTryout(){
   formData.append('botcheck','');
   formData.append('from_name','JT Studio - Design Tryout');
   var files=document.getElementById('tryoutFiles').files;
-  for(var i=0;i<Math.min(files.length,4);i++){formData.append('file_'+i,files[i]);}
+  var fileList='';
+  if(files.length>0){
+    for(var i=0;i<files.length;i++){fileList+=files[i].name+(i<files.length-1?', ':'');}
+    formData.append('message',desc+'\n\nFiles to send: '+fileList+'\n(Please reply to this email to receive the images from the client)');
+  }
   fetch('https://api.web3forms.com/submit',{method:'POST',body:formData})
   .then(function(r){return r.json();})
   .then(function(data){
@@ -2893,7 +2897,7 @@ function submitTryout(){
       </div>
     </div>
     <p style="font-size:12px;color:var(--text-muted);font-style:italic;margin-bottom:32px;">Dies ist ein schneller Designrichtungsservice, keine vollständige Raumplanung.</p>
-    <button onclick="document.getElementById('deuTryoutModal').classList.remove('open');document.getElementById('tryoutOverlay').classList.add('open')" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--accent);border:none;padding:16px 32px;cursor:pointer;transition:background 0.2s ease;">TRYOUT STARTEN →</button>
+    <button onclick="document.getElementById('deuTryoutModal').classList.remove('open');window.open('https://docs.google.com/forms/d/e/1FAIpQLSfMHMASi71kHA9mrzPXe77ubYBd6SvENdgYsyWPs7MefVU9ng/viewform','_blank')" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--accent);border:none;padding:16px 32px;cursor:pointer;transition:background 0.2s ease;">TRYOUT STARTEN →</button>
   </div>
 </div>
 
