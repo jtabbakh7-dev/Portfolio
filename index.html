@@ -2542,20 +2542,33 @@ function submitTryout(){
   var name=document.getElementById('tryoutName').value.trim();
   var email=document.getElementById('tryoutEmail').value.trim();
   var desc=document.getElementById('tryoutDesc').value.trim();
-  if(!name){alert('Bitte geben Sie Ihren Namen ein. / Please enter your name.');return;}
-  if(!email||!email.includes('@')){alert('Bitte eine gültige E-Mail angeben. / Please enter a valid email.');return;}
-  if(!desc){alert('Bitte eine kurze Beschreibung hinzufügen. / Please add a short description.');return;}
-  var btn=document.getElementById('tryoutSubmitBtn');btn.disabled=true;btn.textContent='Wird gesendet…';
+  if(!name){alert('Please enter your name.');return;}
+  if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}
+  if(!desc){alert('Please add a short description.');return;}
+  var btn=document.getElementById('tryoutSubmitBtn');
+  btn.disabled=true;btn.textContent='Sending…';
   var formData=new FormData();
-  formData.append('name',name);formData.append('email',email);formData.append('description',desc);
-  formData.append('_subject','Design Tryout Anfrage — '+name);
+  formData.append('access_key','587d87b0-e382-41a1-bbe4-f5fd9a94d66d');
+  formData.append('name',name);
+  formData.append('email',email);
+  formData.append('message',desc);
+  formData.append('subject','Design Tryout Request — '+name);
   var files=document.getElementById('tryoutFiles').files;
-  for(var i=0;i<Math.min(files.length,4);i++){formData.append('image_'+(i+1),files[i]);}
-  fetch('https://formspree.io/f/xgopbnbd',{method:'POST',body:formData,headers:{Accept:'application/json'}})
-  .then(function(r){
-    if(r.ok){document.getElementById('tryoutForm').style.display='none';document.getElementById('tryoutSuccess').style.display='block';}
-    else{btn.disabled=false;btn.textContent='Anfrage senden / Send Request';alert('Etwas ist schiefgelaufen. / Something went wrong.');}
-  }).catch(function(){btn.disabled=false;btn.textContent='Anfrage senden / Send Request';alert('Verbindungsfehler. / Connection error.');});
+  for(var i=0;i<Math.min(files.length,4);i++){formData.append('file_'+i,files[i]);}
+  fetch('https://api.web3forms.com/submit',{method:'POST',body:formData})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.success){
+      document.getElementById('tryoutForm').style.display='none';
+      document.getElementById('tryoutSuccess').style.display='block';
+    } else {
+      btn.disabled=false;btn.textContent='Send Request';
+      alert('Something went wrong. Please try again.');
+    }
+  }).catch(function(){
+    btn.disabled=false;btn.textContent='Send Request';
+    alert('Connection error. Please try again.');
+  });
 }
 
 // Haus card thumbnail video
