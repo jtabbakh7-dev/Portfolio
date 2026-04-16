@@ -1282,6 +1282,8 @@ footer {
 })();
 </script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="2a29ab08-b4eb-4da3-a40f-ac09c08b3d3c"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("hQ3HnWnYq78Acop1Y");</script>
 </head>
 <body>
 
@@ -2547,24 +2549,42 @@ function submitTryout(){
   if(!desc){alert('Please add a short description.');return;}
   var btn=document.getElementById('tryoutSubmitBtn');
   btn.disabled=true;btn.textContent='Sending...';
-  var form=document.getElementById('tryoutForm');
-  var data=new FormData(form);
-  fetch('/',{
-    method:'POST',
-    body:data
-  }).then(function(response){
-    if(response.ok){
+  
+  var files=document.getElementById('tryoutFiles').files;
+  var fileNames=files.length>0?Array.from(files).map(function(f){return f.name;}).join(', '):'No files';
+  
+  // Read first file as base64 if exists
+  var readers=[];
+  var fileDataPromises=[];
+  for(var i=0;i<Math.min(files.length,3);i++){
+    (function(file){
+      fileDataPromises.push(new Promise(function(resolve){
+        var reader=new FileReader();
+        reader.onload=function(e){resolve({name:file.name,data:e.target.result});};
+        reader.readAsDataURL(file);
+      }));
+    })(files[i]);
+  }
+  
+  Promise.all(fileDataPromises).then(function(fileData){
+    var params={
+      from_name: name,
+      from_email: email,
+      message: desc,
+      file_names: fileNames,
+      to_email: 'j.tabbakh7@gmail.com'
+    };
+    
+    emailjs.send('service_7mokoj1','template_qk058ih',params)
+    .then(function(){
       document.getElementById('tryoutForm').style.display='none';
       document.getElementById('tryoutSuccess').style.display='block';
-    } else {
+    },function(error){
+      console.error('EmailJS error:',error);
       btn.disabled=false;
       btn.textContent='Send Request';
       alert('Something went wrong. Please try again.');
-    }
-  }).catch(function(){
-    btn.disabled=false;
-    btn.textContent='Send Request';
-    alert('Connection error. Please try again.');
+    });
   });
 }
 
@@ -2649,7 +2669,7 @@ function submitTryout(){
 <div id="tryoutOverlay" onclick="closeTryoutPopup(event)">
   <div id="tryoutPopup">
     <button class="tryout-popup-close" onclick="closeTryoutPopup()">&#x2715; Schlie&szlig;en / Close</button>
-    <form id="tryoutForm" name="design-tryout" method="POST" data-netlify="true" enctype="multipart/form-data">
+    <div id="tryoutForm">
 <input type="hidden" name="form-name" value="design-tryout">
       <p class="tryout-popup-label">Entry Offer</p>
       <h2 class="tryout-popup-title">Design Tryout</h2>
