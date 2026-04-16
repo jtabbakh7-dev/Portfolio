@@ -1483,7 +1483,7 @@ footer {
       </form>
       <div style="margin-top:8px;text-align:right;">
         <button onclick="openMapLightbox()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:7px 14px;cursor:pointer;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">&#x26F6; Expand map</button>
-      </div>
+      </form>
 
     </div>
   </div>
@@ -2548,15 +2548,23 @@ function submitTryout(){
   var btn=document.getElementById('tryoutSubmitBtn');
   btn.disabled=true;btn.textContent='Sending...';
   var form=document.getElementById('tryoutForm');
-  var formData=new FormData(form);
-  fetch('/',{method:'POST',headers:{'Accept':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()})
-  .then(function(){
-    document.getElementById('tryoutForm').style.display='none';
-    document.getElementById('tryoutSuccess').style.display='block';
-  })
-  .catch(function(){
-    btn.disabled=false;btn.textContent='Send Request';
-    alert('Something went wrong. Please try again.');
+  var data=new FormData(form);
+  fetch('/',{
+    method:'POST',
+    body:data
+  }).then(function(response){
+    if(response.ok){
+      document.getElementById('tryoutForm').style.display='none';
+      document.getElementById('tryoutSuccess').style.display='block';
+    } else {
+      btn.disabled=false;
+      btn.textContent='Send Request';
+      alert('Something went wrong. Please try again.');
+    }
+  }).catch(function(){
+    btn.disabled=false;
+    btn.textContent='Send Request';
+    alert('Connection error. Please try again.');
   });
 }
 
@@ -2641,7 +2649,8 @@ function submitTryout(){
 <div id="tryoutOverlay" onclick="closeTryoutPopup(event)">
   <div id="tryoutPopup">
     <button class="tryout-popup-close" onclick="closeTryoutPopup()">&#x2715; Schlie&szlig;en / Close</button>
-    <div id="tryoutForm">
+    <form id="tryoutForm" name="design-tryout" method="POST" data-netlify="true" enctype="multipart/form-data">
+<input type="hidden" name="form-name" value="design-tryout">
       <p class="tryout-popup-label">Entry Offer</p>
       <h2 class="tryout-popup-title">Design Tryout</h2>
       <p class="tryout-popup-sub">&euro;199 &middot; 3 Werktage / business days</p>
