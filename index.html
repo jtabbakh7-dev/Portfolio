@@ -2553,6 +2553,8 @@ function submitTryout(){
   formData.append('email',email);
   formData.append('message',desc);
   formData.append('subject','Design Tryout Request — '+name);
+  formData.append('botcheck','');
+  formData.append('from_name','JT Studio - Design Tryout');
   var files=document.getElementById('tryoutFiles').files;
   for(var i=0;i<Math.min(files.length,4);i++){formData.append('file_'+i,files[i]);}
   fetch('https://api.web3forms.com/submit',{method:'POST',body:formData})
