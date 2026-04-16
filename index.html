@@ -1480,7 +1480,7 @@ footer {
 <circle cx="456" cy="1026" r="6" fill="#1D9E75" opacity="0.9"/><text x="471" y="1030" style="font-family:Space Mono,monospace;font-size:15px;fill:#E8E0D8;letter-spacing:0.10em;">Berlin &#x2014; Now</text>
 <line x1="584" y1="1022" x2="610" y2="1022" stroke="#7A7068" stroke-width="1.4" stroke-dasharray="5 3"/><text x="618" y="1030" style="font-family:Space Mono,monospace;font-size:15px;fill:#E8E0D8;letter-spacing:0.10em;">Route</text>
 </svg>
-      </div>
+      </form>
       <div style="margin-top:8px;text-align:right;">
         <button onclick="openMapLightbox()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:7px 14px;cursor:pointer;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">&#x26F6; Expand map</button>
       </div>
@@ -2547,17 +2547,17 @@ function submitTryout(){
   if(!desc){alert('Please add a short description.');return;}
   var btn=document.getElementById('tryoutSubmitBtn');
   btn.disabled=true;btn.textContent='Sending...';
-  var files=document.getElementById('tryoutFiles').files;
-  var fileNames=files.length>0?Array.from(files).map(function(f){return f.name;}).join(', '):'No files selected';
-  var nl='%0A';
-  var subject=encodeURIComponent('Design Tryout Request - '+name);
-  var body='Name: '+encodeURIComponent(name)+nl+'Email: '+encodeURIComponent(email)+nl+nl+'Description:'+nl+encodeURIComponent(desc)+nl+nl+'Files: '+encodeURIComponent(fileNames)+nl+nl+'(Please reply with your photos attached)';
-  window.location.href='mailto:j.tabbakh7@gmail.com?subject='+subject+'&body='+body;
-  setTimeout(function(){
+  var form=document.getElementById('tryoutForm');
+  var formData=new FormData(form);
+  fetch('/',{method:'POST',headers:{'Accept':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()})
+  .then(function(){
     document.getElementById('tryoutForm').style.display='none';
     document.getElementById('tryoutSuccess').style.display='block';
-    btn.disabled=false;
-  },1500);
+  })
+  .catch(function(){
+    btn.disabled=false;btn.textContent='Send Request';
+    alert('Something went wrong. Please try again.');
+  });
 }
 
 // Haus card thumbnail video
