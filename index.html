@@ -1539,6 +1539,7 @@ footer {
       <button class="filter-btn" onclick="filterProjects('workplace')">Workplace</button>
       <button class="filter-btn" onclick="filterProjects('residential')">Residential</button>
       <button class="filter-btn" onclick="filterProjects('vr')">3D &amp; VR</button>
+      <button class="filter-btn" onclick="filterProjects('storytelling')">Design Storytelling</button>
     </div>
   </div>
   <div class="projects-grid" id="projectsGrid">
@@ -2967,6 +2968,39 @@ function openCloudinaryUpload(){
   });
 })();
 </script>
+
+<!-- Modal: Hotel Restoration -->
+<div id="modal-hotel_restoration" class="project-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,10,8,0.95);overflow-y:auto;padding:80px 40px;">
+  <button onclick="closeModal('hotel_restoration')" style="position:fixed;top:24px;right:32px;background:none;border:none;color:var(--text-muted);font-size:24px;cursor:pointer;">✕</button>
+  <div style="max-width:900px;margin:0 auto;">
+    <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);margin-bottom:16px;">DESIGN STORYTELLING / GENERATIVE DESIGN</p>
+    <h2 style="font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:300;color:var(--text);margin-bottom:32px;">Hotel Restoration — AI Reimagination</h2>
+    <video controls style="width:100%;margin-bottom:32px;"><source src="hotel_restorations.mp4" type="video/mp4"></video>
+    <p style="font-family:var(--font-body);font-size:15px;line-height:1.8;color:var(--text-muted);max-width:680px;">Walked past a derelict building and asked — what could this be? Using AI generative design tools, this conceptual hotel restoration brings a ruin back to life. No brief, no client. Just a question and a set of tools.</p>
+    <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;color:var(--accent);border:1px solid var(--border);padding:4px 10px;">AI Visualization</span>
+      <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;color:var(--accent);border:1px solid var(--border);padding:4px 10px;">Generative Design</span>
+      <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;color:var(--accent);border:1px solid var(--border);padding:4px 10px;">Conceptual</span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Rebuilding Aleppo -->
+<div id="modal-rebuilding_aleppo" class="project-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,10,8,0.95);overflow-y:auto;padding:80px 40px;">
+  <button onclick="closeModal('rebuilding_aleppo')" style="position:fixed;top:24px;right:32px;background:none;border:none;color:var(--text-muted);font-size:24px;cursor:pointer;">✕</button>
+  <div style="max-width:900px;margin:0 auto;">
+    <p style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);margin-bottom:16px;">DESIGN STORYTELLING / GENERATIVE DESIGN</p>
+    <h2 style="font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:300;color:var(--text);margin-bottom:32px;">Rebuilding Aleppo</h2>
+    <video controls style="width:100%;margin-bottom:32px;"><source src="Rebuilding Aleppo - Final v2.mp4" type="video/mp4"></video>
+    <p style="font-family:var(--font-body);font-size:15px;line-height:1.8;color:var(--text-muted);max-width:680px;">A design storytelling project exploring post-conflict reconstruction through AI visualization. Architecture as memory, identity, and hope — built pixel by pixel.</p>
+    <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;color:var(--accent);border:1px solid var(--border);padding:4px 10px;">AI Visualization</span>
+      <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;color:var(--accent);border:1px solid var(--border);padding:4px 10px;">Generative Design</span>
+      <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;color:var(--accent);border:1px solid var(--border);padding:4px 10px;">Conceptual</span>
+    </div>
+  </div>
+</div>
+
 </body>
 </html,
   fassade:{title:'Fassade Design Iterations',location:'AI-Assisted Facade Generation',year:'2024',type:'Residential',descEN:'A series of AI-generated facade iterations exploring material, texture, and form.',descDE:'KI-generierte Fassadendesign-Iterationen.',tags:['AI Visualization','Generative','Facade','Conceptual'],images:[]},
