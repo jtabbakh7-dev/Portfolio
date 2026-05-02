@@ -2165,6 +2165,32 @@ const PROJECTS = {
     descEN: `A real-time walkthrough of the Goldbeck HQ office interior, built in Chaos Cloud. Explore the space in full 3D — navigate between zones, feel the scale, and experience the design before construction.`,
     tags: ['VR','3D Visualization','Interactive','Workplace'],
     images: []
+  },
+
+  hotel_restoration: {
+    title: 'Hotel Restoration — AI Reimagination',
+    subtitle: 'A ruin reimagined through generative design',
+    location: 'Conceptual',
+    year: '',
+    typology: 'Generative Design / AI Visualization',
+    descDE: `Ich bin eine Straße entlanggegangen und habe ein altes Ruinengebäude gesehen — und mich gefragt: Was könnte das werden? Mit KI-generativen Design-Tools wurde diese konzeptionelle Hotelrestaurierung zum Leben erweckt. Kein Briefing, kein Kunde. Nur eine Frage und ein Set von Werkzeugen.`,
+    descEN: `Walked past a derelict building and asked — what could this be? Using AI generative design tools, this conceptual hotel restoration brings a ruin back to life. No brief, no client. Just a question and a set of tools.`,
+    tags: ['AI Visualization','Generative Design','Conceptual','Design Storytelling'],
+    video: 'hotel_restorations.mp4',
+    images: []
+  },
+
+  rebuilding_aleppo: {
+    title: 'Rebuilding Aleppo',
+    subtitle: 'Post-conflict reconstruction through AI visualization',
+    location: 'Aleppo, Syria — Conceptual',
+    year: '',
+    typology: 'Generative Design / Social Architecture',
+    descDE: `Ein Design-Storytelling-Projekt, das den Wiederaufbau nach dem Krieg durch KI-Visualisierung erforscht. Architektur als Erinnerung, Identität und Hoffnung — Pixel für Pixel aufgebaut.`,
+    descEN: `A design storytelling project exploring post-conflict reconstruction through AI visualization. Architecture as memory, identity, and hope — built pixel by pixel.`,
+    tags: ['AI Visualization','Generative Design','Conceptual','Social Architecture','Design Storytelling'],
+    video: 'Rebuilding Aleppo - Final v2.mp4',
+    images: []
   }
 };
 
@@ -2192,11 +2218,14 @@ function openModal(id) {
 
   const tagsHTML = '<div class="modal-tags">' + p.tags.map(function(t){ return '<span class="modal-tag">' + t + '</span>'; }).join('') + '</div>';
 
+  var videoHTML = p.video ? '<div style="margin-bottom:32px;"><video controls autoplay muted loop playsinline style="width:100%;max-height:500px;object-fit:contain;background:#000;"><source src="' + p.video + '" type="video/mp4"></video></div>' : '';
+
   const imagesHTML = '<div class="modal-images">' + p.images.map(function(img){
     return '<div class="modal-img-slot"><span class="modal-img-label">' + img.label + '</span><span class="modal-img-hint">' + (img.hint||'') + '</span></div>';
   }).join('') + '</div>';
 
   inner.innerHTML =
+    videoHTML +
     '<div class="modal-header">' +
       '<div>' +
         '<h2 class="modal-project-title">' + p.title + '<em> —</em></h2>' +
@@ -2917,7 +2946,7 @@ function openCloudinaryUpload(){
         <div style="font-family:var(--font-display);font-size:28px;font-weight:300;color:var(--text);margin-bottom:4px;">Berlin</div>
         <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Design &amp; Visualisierung</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;">Wo Ideen Form annehmen. Vollständiges Designpaket mit Visualisierungen und Schemaplanung — bereit zur Freigabe.</p>
-        <ul style="list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px;"><li style="font-size:13px;color:var(--text-muted);">— Alles aus Dessau</li><li style="font-size:13px;color:var(--text-muted);">— Vollständige Raumplanung &amp; Layout</li><li style="font-size:13px;color:var(--text-muted);">— Fotorealistische 3D-Visualisierungen</li><li style="font-size:13px;color:var(--text-muted);">— Möbel- &amp; Beleuchtungsspezifikation</li><li style="font-size:13px;color:var(--text-muted);">— Schemaplanung</li><li style="font-size:13px;color:var(--text-muted);">— 2 Überarbeitungsrunden</li></ul>
+        <ul style="list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px;"><li style="font-size:13px;color:var(--text-muted);">— Alles im Dessau-Paket enthalten</li><li style="font-size:13px;color:var(--text-muted);">— Vollständige Raumplanung &amp; Layout</li><li style="font-size:13px;color:var(--text-muted);">— Fotorealistische 3D-Visualisierungen</li><li style="font-size:13px;color:var(--text-muted);">— Möbel- &amp; Beleuchtungsspezifikation</li><li style="font-size:13px;color:var(--text-muted);">— Schemaplanung</li><li style="font-size:13px;color:var(--text-muted);">— 2 Überarbeitungsrunden</li></ul>
         <div style="font-family:var(--font-display);font-size:20px;font-weight:300;color:var(--text);">ab €1.500 <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">Pro Raum oder Bereich</span></div>
         <a href="#contact" onclick="document.getElementById('deuPackagesModal').classList.remove('open')" style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-top:16px;transition:gap 0.2s ease;">ANFRAGEN →</a>
       </div>
@@ -2925,7 +2954,7 @@ function openCloudinaryUpload(){
         <div style="font-family:var(--font-display);font-size:28px;font-weight:300;color:var(--text);margin-bottom:4px;">Dubai</div>
         <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Vollständiges Projekt + VR</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;">Das vollständige Projekt. Design, Entwicklung und VR — vom ersten Konzept bis zur endgültigen Freigabe.</p>
-        <ul style="list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px;"><li style="font-size:13px;color:var(--text-muted);">— Alles aus Berlin</li><li style="font-size:13px;color:var(--text-muted);">— Design-Entwicklung: finale Materialauswahl, Detailzeichnungen &amp; Spezifikationen</li><li style="font-size:13px;color:var(--text-muted);">— VR-Walkthrough oder animiertes Video</li><li style="font-size:13px;color:var(--text-muted);">— 3 Überarbeitungsrunden</li></ul>
+        <ul style="list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px;"><li style="font-size:13px;color:var(--text-muted);">— Alles im Berlin-Paket enthalten</li><li style="font-size:13px;color:var(--text-muted);">— Design-Entwicklung: finale Materialauswahl, Detailzeichnungen &amp; Spezifikationen</li><li style="font-size:13px;color:var(--text-muted);">— VR-Walkthrough oder animiertes Video</li><li style="font-size:13px;color:var(--text-muted);">— 3 Überarbeitungsrunden</li></ul>
         <div style="font-family:var(--font-display);font-size:20px;font-weight:300;color:var(--text);">ab €3.500 <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">Gesamte Wohnung oder Büro</span></div>
         <a href="#contact" onclick="document.getElementById('deuPackagesModal').classList.remove('open')" style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-top:16px;transition:gap 0.2s ease;">ANFRAGEN →</a>
       </div>
