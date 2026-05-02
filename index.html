@@ -2212,7 +2212,7 @@ function openModal(id) {
 
   const metaHTML = '<div class="modal-meta-row">' +
     '<div class="modal-meta-item"><span class="modal-meta-label">Location</span><span class="modal-meta-value">' + p.location + '</span></div>' +
-    '<div class="modal-meta-item"><span class="modal-meta-label">Year</span><span class="modal-meta-value">' + p.year + '</span></div>' +
+    (p.year ? '<div class="modal-meta-item"><span class="modal-meta-label">Year</span><span class="modal-meta-value">' + p.year + '</span></div>' : '') +
     '<div class="modal-meta-item"><span class="modal-meta-label">Typology</span><span class="modal-meta-value">' + p.typology + '</span></div>' +
     '</div>';
 
@@ -2225,7 +2225,6 @@ function openModal(id) {
   }).join('') + '</div>';
 
   inner.innerHTML =
-    videoHTML +
     '<div class="modal-header">' +
       '<div>' +
         '<h2 class="modal-project-title">' + p.title + '<em> —</em></h2>' +
@@ -2235,6 +2234,7 @@ function openModal(id) {
       '<button class="modal-close" onclick="closeModal()">&#x2715; Close</button>' +
     '</div>' +
     '<div class="modal-body">' +
+      videoHTML +
       '<div><div class="modal-desc">' + descHTML + '</div>' + tagsHTML + '</div>' +
       imagesHTML +
     '</div>';
